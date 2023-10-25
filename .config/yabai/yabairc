@@ -1,0 +1,52 @@
+# bsp, stack or float
+yabai -m config layout bsp
+
+yabai -m config window_placement second_child
+
+# padding
+yabai -m config window_gap 12
+yabai -m config top_padding 4
+yabai -m config bottom_padding 4
+yabai -m config right_padding 4
+yabai -m config left_padding 4
+
+# mouse settings
+yabai -m config mouse_follows_focus on
+yabai -m config mouse_modifier alt
+# left click and drag
+yabai -m config mouse_action1 move  
+# right click and drag
+yabai -m config mouse_action2 resize
+yabai -m config mouse_drop_action swap
+
+# float system preferences. Most of these just diable Yabai form resizing them.
+yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Karabiner-Elements$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Karabiner-EventViewer$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Finder$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Disk Utility$" sticky=on layer=above manage=off
+yabai -m rule --add app="^System Information$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Activity Monitor$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Path Finder$" manage=off
+yabai -m rule --add app="^TeamViewer$" sticky=off layer=above manage=off
+yabai -m rule --add app="Fantastical" manage=off
+yabai -m rule --add app="^Spotify$" manage=off
+yabai -m rule --add app="^Mail$" manage=off
+yabai -m rule --add app="^Discord$" manage=off
+yabai -m rule --add app="^Photo Booth$" manage=off
+yabai -m rule --add app="^Preview$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^qBittorent" manage=off
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Postman$" manage=off
+yabai -m rule --add app="^Transparent-Note$" manage=off
+yabai -m rule --add app="Transparent-Note" manage=off
+yabai -m rule --add app="^Flux$" manage=off
+yabai -m rule --add app="^Time Out$" manage=off
+yabai -m rule --add app="^perl_client_app$" manage=off
+yabai -m rule --add app="^console$" manage=off
+yabai -m rule --add app="^Harvest$" manage=off
+yabai -m rule --add app="^CiscoSparkHelper$" manage=off
+yabai -m rule --add app="^Logi Options$" manage=off
+yabai -m rule --add app="^Cisco Webex Start$" manage=off
+yabai -m rule --add app="^Private Internet Access$" manage=off

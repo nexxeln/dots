@@ -1,0 +1,2 @@
+theme = "Lithium"
+show = ["Host", "Kernel", "Distribution", "Packages", "Terminal", "Shell", "Uptime", "Processor", "Memory", "Battery"] 
