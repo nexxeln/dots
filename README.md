@@ -7,3 +7,4 @@ hi these are my dotfiles
 - starship
 - yabai
 - nvim
+- vscode
