@@ -41,7 +41,7 @@ window:
   startup_mode: Windowed
 
   # Background opacity
-  opacity: 1
+  opacity: 0.8
 
 # Colors (Mellow)
 colors:
