@@ -18,8 +18,8 @@ opt.fileencoding = "utf-8" -- encoding of files
 opt.mouse = "a" -- enable mouse in all modes, for more options see :help 'mouse'
 opt.ignorecase = true -- ignore case while searching
 opt.smartcase = true -- ovveride ignore case if search pattern contains upper case characters
-opt.number = true -- numbered lines
-opt.relativenumber = true -- relative line numbers
+opt.number = false -- numbered lines
+-- opt.relativenumber = true -- relative line numbers
 opt.numberwidth = 4 -- number column width
 opt.pumheight = 10 -- height of pop up menu
 opt.scrolloff = 8 -- minimium number of lines above and below the cursor
@@ -35,4 +35,3 @@ opt.signcolumn = "yes" -- always show the sign column
 opt.undofile = true -- persistent undo
 opt.expandtab = false -- use tabs
 opt.guicursor = "n-v-c-i:block" -- cursor style in different modes, see :help 'guicursor'
-
