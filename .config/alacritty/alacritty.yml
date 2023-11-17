@@ -4,7 +4,7 @@ env:
 font:
   size: 14
   normal:
-    family: "Dank Mono"
+    family: "Hack Nerd Font"
     style: Regular
   bold:
     style: Bold

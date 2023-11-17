@@ -17,7 +17,7 @@ require("lazy").setup({
 },
 	{
 		install = {
-			colorscheme = { "nightfly" }
+			colorscheme = { "solarized-osaka" }
 		},
 		change_detection = {
 			notify = false
