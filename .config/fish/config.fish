@@ -26,6 +26,7 @@ alias aocd="cd /Users/nxl/Code/aoc/"
 alias aoc="aot; aos"
 alias aot="aocd; echo -e '\033[94m'; python3 main.py < test.txt; echo -e '\033[0m'"
 alias aos="aocd; python3 main.py < in.txt"
+alias ds="caffeinate -d"
 
 # opam configuration
 source /Users/nxl/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
