@@ -21,12 +21,13 @@ alias ll="exa -l -g --git"
 alias llt="exa -1 --git --tree --git-ignore"
 alias e="nvim"
 alias py="python3"
-alias ccc="gcc -Wall -Wextra -Werror -O2 -std=c99 -pedantic"
 alias aocd="cd /Users/nxl/Code/aoc/"
 alias aoc="aot; aos"
 alias aot="aocd; echo -e '\033[94m'; python3 main.py < test.txt; echo -e '\033[0m'"
 alias aos="aocd; python3 main.py < in.txt"
 alias ds="caffeinate -d"
+alias fds="git add -A && git commit -m 'fastcommit' && git push"
+alias fetch="macchina"
 
 # opam configuration
 source /Users/nxl/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
@@ -39,3 +40,5 @@ set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; se
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+
+fish_add_path /Users/nxl/.spicetify

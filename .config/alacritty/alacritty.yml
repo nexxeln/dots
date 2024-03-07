@@ -8,7 +8,7 @@ font:
     style: Regular
   bold:
     style: Bold
-  italic:
+  talic:
     style: Italic
   bold_italic:
     style: Bold Italic
@@ -41,7 +41,7 @@ window:
   startup_mode: Windowed
 
   # Background opacity
-  opacity: 0.8
+  opacity: 1
 
 # Colors (Mellow)
 colors:

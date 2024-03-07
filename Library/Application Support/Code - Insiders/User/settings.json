@@ -1,70 +1,29 @@
 {
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.tabSize": 2
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.tabSize": 2
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.tabSize": 2
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.tabSize": 2
-  },
-  "breadcrumbs.enabled": false,
-  "diffEditor.ignoreTrimWhitespace": false,
+  // vscode meta stuff
+  "workbench.startupEditor": "none",
   "editor.accessibilitySupport": "off",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.organizeImports": false
-  },
-  "editor.cursorBlinking": "solid",
-  "editor.cursorSmoothCaretAnimation": "on",
-  "editor.cursorStyle": "block",
-  "editor.fontFamily": "Dank Mono",
-  "editor.fontSize": 15,
+
+  // text editing stuff
   "editor.formatOnSave": true,
-  "editor.inlayHints.enabled": "off",
-  "editor.inlineSuggest.enabled": true,
-  "editor.lineHeight": 28,
-  "editor.lineNumbers": "relative",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.linkedEditing": true,
-  "editor.minimap.enabled": false,
-  "editor.smoothScrolling": true,
-  "editor.suggest.insertMode": "replace",
-  "errorLens.enabled": true,
-  "errorLens.enabledDiagnosticLevels": ["warning", "info", "error"],
-  "explorer.confirmDragAndDrop": false,
-  "git.autofetch": true,
-  "git.confirmSync": false,
-  "git.enableSmartCommit": true,
-  "github.copilot.enable": {
-    "*": true,
-    "markdown": true,
-    "plaintext": true,
-    "scminput": false
-  },
-  "haskell.manageHLS": "GHCup",
-  "haskell.serverEnvironment": {
-    "PATH": "${HOME}/.ghcup/bin:$PATH"
-  },
-  "prettier.documentSelectors": ["**/*.astro"],
-  "settingsSync.ignoredExtensions": ["antfu.unocss"],
-  "typescript.preferences.importModuleSpecifier": "non-relative",
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "vim.cursorStylePerMode.insert": "block",
-  "vim.cursorStylePerMode.normal": "block",
-  "vim.cursorStylePerMode.replace": "block",
-  "vim.cursorStylePerMode.visual": "block",
-  "vim.cursorStylePerMode.visualblock": "block",
-  "vim.cursorStylePerMode.visualline": "block",
-  "vim.foldfix": true,
-  "vim.hlsearch": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.unicodeHighlight.nonBasicASCII": false,
+
+  // ui stuff
+  //    font
+  "editor.fontFamily": "Dank Mono",
+  "editor.fontSize": 16,
+  "editor.lineHeight": 1.42857, // makes font size 14 have line height of ~20px
+  "apc.font.family": "Geist Mono", // apply font to ALL the UI, requires APC extension
+
+  //   cursor
+  "editor.cursorBlinking": "smooth", // smol cursor animation, looks nice
+  "editor.cursorSmoothCaretAnimation": "on", // move cursor smoothly
+
+  //    window
+  //     title bar
+  "window.title": "${dirty}${rootName}${separator}${activeEditorShort}",
   "vim.leader": "<space>",
   "vim.normalModeKeyBindings": [
     {
@@ -96,15 +55,110 @@
       "commands": ["workbench.action.quickOpen"]
     }
   ],
-  "workbench.colorTheme": "Serendipity Sunset",
-  "workbench.editor.showTabs": false,
-  "workbench.iconTheme": "spectrum-vscode-icons",
-  "workbench.productIconTheme": "icons-carbon",
-  "workbench.settings.editor": "json",
-  "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter",
-    "editor.tabSize": 4
+
+  //     top bar
+  "workbench.editor.showTabs": false, // hide tabs
+  "breadcrumbs.enabled": false, // hides breadcrumb path at top of window
+  "window.commandCenter": false, // hides command center at the top of the window. Use cmd+shift+p instead
+  "workbench.layoutControl.enabled": false, // hides those little squares on the top right of the window
+  "workbench.editor.editorActionsLocation": "hidden", // hides the "format" and ellipsis buttons on the top right of the window
+
+  //     minimap
+  "editor.minimap.renderCharacters": false, // make minimap blockish (low level of detail)
+  "editor.hideCursorInOverviewRuler": true, // don't highlight current line in scrollbar
+  "editor.minimap.autohide": true, // shows minimap only on hover
+
+  //     sidebar
+  "workbench.activityBar.location": "hidden", // hide sidebar icons, use cmd+b to toggle open
+  "workbench.sideBar.location": "right", // puts sidebar on the right, less disruptive (doesn't shift code if text wrap is disabled) when opening with cmd+b
+
+  //     bottom bar
+  "workbench.statusBar.visible": false, // hide bottom bar
+
+  //     editor
+  "editor.stickyScroll.enabled": true, // keep block name fixed at top when scrolling
+  "gitlens.mode.active": "zen", // toggle with command palette, zen mode hides gitlens stuff for when you don't need it
+  "editor.wordWrap": "on", // wrap text instead of scrolling horizontally
+
+  //   Theme
+  "workbench.iconTheme": "chalice-icon-theme",
+  "workbench.colorTheme": "Vesper",
+  //     Overrides vesper theme start
+  "workbench.colorCustomizations": {
+    "editorGutter.addedBackground": "#A0A0A0",
+    "editorGutter.deletedBackground": "#A0A0A0",
+    "editorGutter.modifiedBackground": "#A0A0A0"
   },
-  "explorer.confirmDelete": false,
-  "workbench.editor.untitled.hint": "hidden"
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      // remove peppermint flavor
+      {
+        "name": "String, Symbols, Inherited Class",
+        "scope": [
+          "string",
+          "constant.other.symbol",
+          "constant.other.key",
+          "meta.group.braces.curly constant.other.object.key.js string.unquoted.label.js"
+        ],
+        "settings": {
+          "foreground": "#A0A0A0"
+        }
+      },
+      {
+        "name": "CSS ID's",
+        "scope": [
+          "source.sass keyword.control",
+          "meta.attribute-selector.scss"
+        ],
+        "settings": {
+          "foreground": "#ffffff"
+        }
+      },
+      {
+        "name": "Inserted",
+        "scope": ["markup.inserted"],
+        "settings": {
+          "foreground": "#ffffff"
+        }
+      }
+    ]
+  },
+  //     Overrides vesper theme end
+
+  // git stuff
+  "git.openRepositoryInParentFolders": "always",
+  "git.autofetch": true,
+  "git.confirmNoVerifyCommit": false,
+  "git.confirmSync": false,
+  "git.ignoreMissingGitWarning": true,
+  "gitlens.gitCommands.skipConfirmations": [
+    "fetch:command",
+    "stash-push:command",
+    "switch:command",
+    "push:command"
+  ],
+  "gitlens.hovers.currentLine.over": "line",
+
+  // js tooling stuff
+  "typescript.preferences.importModuleSpecifier": "non-relative", // prefer aliases when importing
+  "eslint.options": {
+    "extensions": [".js", ".jsx", ".mdx", ".ts", ".tsx"]
+  },
+  "eslint.validate": [
+    "mdx",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "tailwindCSS.experimental.classRegex": [
+    // enables tailwind autocomplete for specified functions
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
+  "[c]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+  "git.enableSmartCommit": true
 }
