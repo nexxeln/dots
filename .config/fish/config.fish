@@ -15,7 +15,7 @@ end
 alias g=git
 alias fishrc="nvim ~/.config/fish/config.fish"
 alias reload="source ~/.config/fish/config.fish"
-alias c="open $1 -a \"Visual Studio Code - Insiders\""
+alias c="open $1 -a \"Cursor\""
 alias pn=pnpm
 alias ll="exa -l -g --git"
 alias llt="exa -1 --git --tree --git-ignore"
@@ -32,7 +32,6 @@ alias fetch="macchina"
 # opam configuration
 source /Users/nxl/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 
-starship init fish | source
 zoxide init fish | source
 
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /Users/nxl/.ghcup/bin # ghcup-env
@@ -42,3 +41,5 @@ set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
 fish_add_path /Users/nxl/.spicetify
+direnv hook fish | source
+
