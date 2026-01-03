@@ -38,7 +38,7 @@ fi
 DOTS_DIR="$HOME/.dots"
 if [[ ! -d "$DOTS_DIR" ]]; then
     log "Cloning dotfiles..."
-    git clone https://github.com/nexxel/dots.git "$DOTS_DIR"
+    git clone https://github.com/nexxeln/dots.git "$DOTS_DIR"
     success "Dotfiles cloned to $DOTS_DIR"
 else
     success "Dotfiles already at $DOTS_DIR"
