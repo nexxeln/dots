@@ -27,11 +27,7 @@
         recursive = true;
       };
 
-      # raycast extensions (config.json excluded via .gitignore, syncs via raycast)
-      ".config/raycast/extensions" = {
-        source = ../../config/raycast/extensions;
-        recursive = true;
-      };
+
     };
 
     # session variables

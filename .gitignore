@@ -9,8 +9,8 @@ secrets/*.token
 **/*secret*
 **/*credential*
 
-# raycast tokens (synced via raycast itself)
-config/raycast/config.json
+# raycast (synced via raycast itself)
+config/raycast/
 
 # opencode runtime
 config/opencode/node_modules/
