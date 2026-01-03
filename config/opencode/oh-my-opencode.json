@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "Sisyphus": {
+      "model": "anthropic/claude-opus-4-5"
+    },
+    "oracle": {
+      "model": "anthropic/claude-opus-4-5"
+    },
+    "librarian": {
+      "model": "anthropic/claude-sonnet-4-5"
+    },
+    "explore": {
+      "model": "anthropic/claude-haiku-4-5"
+    },
+    "frontend-ui-ux-engineer": {
+      "disable": true
+    },
+    "document-writer": {
+      "model": "anthropic/claude-opus-4-5"
+    },
+    "multimodal-looker": {
+      "disable": true
+    }
+  },
+  "disabled_hooks": [
+    "anthropic-context-window-limit-recovery"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "vesper",
+  "plugin": [
+    "file:///Users/nxl/code/supermemory/opencode-supermemory",
+    "oh-my-opencode",
+    "opencode-handoff"
+  ],
+  "permission": {
+    "bash": {
+      "git push": "ask",
+    },
+    "doom_loop": "ask",
+  },
+}

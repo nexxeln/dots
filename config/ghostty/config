@@ -1,0 +1,13 @@
+shell-integration = fish
+theme = vesper
+font-family = TX-02
+font-size = 18
+window-padding-x = 8
+window-padding-y = 8
+macos-titlebar-style = hidden
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+mouse-hide-while-typing = true
+keybind = shift+enter=text:\n
+macos-option-as-alt = true

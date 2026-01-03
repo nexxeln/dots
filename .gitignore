@@ -1,0 +1,29 @@
+# nix
+result
+result-*
+.direnv
+
+# secrets (never commit)
+secrets/*.json
+secrets/*.token
+**/*secret*
+**/*credential*
+
+# raycast tokens (synced via raycast itself)
+config/raycast/config.json
+
+# opencode runtime
+config/opencode/node_modules/
+config/opencode/bun.lock
+config/opencode/.opencode/
+
+# editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# os
+.DS_Store
+Thumbs.db
