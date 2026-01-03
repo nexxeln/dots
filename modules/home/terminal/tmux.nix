@@ -152,9 +152,53 @@ in
     '';
   };
 
-  # link tmux scripts
-  home.file.".config/tmux/scripts" = {
-    source = ../../../config/tmux/scripts;
-    recursive = true;
+  # sessionizer script
+  home.file.".config/tmux/scripts/sessionizer" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+
+      SEARCH_DIRS=(
+          ~/code
+          ~/projects
+          ~/work
+          ~/.config
+      )
+
+      dirs=""
+      for dir in "''${SEARCH_DIRS[@]}"; do
+          [[ -d "$dir" ]] && dirs="$dirs $dir"
+      done
+
+      selected=$(
+          {
+              tmux list-sessions -F "#{session_name}" 2>/dev/null
+              [[ -n "$dirs" ]] && find $dirs -mindepth 1 -maxdepth 1 -type d 2>/dev/null
+          } | fzf --reverse --border=none --margin=1 --padding=1 \
+              --prompt='  ' --pointer='▌' --no-scrollbar \
+              --color=bg:#101010,bg+:#232323,fg:#A0A0A0,fg+:#FFFFFF,hl:#FFC799,hl+:#FFC799,pointer:#FFC799,prompt:#FFC799,info:#5C5C5C
+      )
+
+      [[ -z "$selected" ]] && exit 0
+
+      if [[ "$selected" == /* ]]; then
+          session_name=$(basename "$selected" | tr '.' '_')
+          session_path="$selected"
+      else
+          session_name="$selected"
+          session_path=""
+      fi
+
+      if tmux has-session -t="$session_name" 2>/dev/null; then
+          tmux switch-client -t "$session_name"
+      else
+          if [[ -n "$session_path" ]]; then
+              tmux new-session -ds "$session_name" -c "$session_path"
+          else
+              tmux new-session -ds "$session_name"
+          fi
+          tmux switch-client -t "$session_name"
+      fi
+    '';
   };
 }
