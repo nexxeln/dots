@@ -76,6 +76,7 @@
       "openssh"
 
       # security
+      "1password-cli"
       "gnupg"
       "pinentry"
 
@@ -106,6 +107,7 @@
       "font-symbols-only-nerd-font"
 
       # utils
+      "1password"
       "keycastr"
       "ngrok"
     ];
