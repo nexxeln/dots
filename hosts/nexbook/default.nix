@@ -47,11 +47,7 @@
     shell = pkgs.fish;
   };
 
-  # keyboard
-  system.keyboard = {
-    enableKeyMapping = true;
-    remapCapsLockToEscape = true;
-  };
+
 
   # required for nix-darwin
   system.stateVersion = 5;
