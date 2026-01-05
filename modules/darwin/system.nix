@@ -13,6 +13,11 @@
       show-recents = false;
       mru-spaces = false;
       expose-animation-duration = 0.1;
+      # disable hot corners
+      wvous-tl-corner = 1;
+      wvous-tr-corner = 1;
+      wvous-bl-corner = 1;
+      wvous-br-corner = 1;
     };
 
     # finder
@@ -41,6 +46,9 @@
       # appearance
       AppleInterfaceStyle = "Dark";
       AppleShowScrollBars = "WhenScrolling";
+
+      # window management
+      NSWindowShouldDragOnGesture = true; # drag windows from anywhere with Cmd+Ctrl
 
       # misc
       NSAutomaticCapitalizationEnabled = false;

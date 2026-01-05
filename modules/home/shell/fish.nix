@@ -75,7 +75,7 @@
       oc = "opencode -c";
 
       # rebuild nix
-      rebuild = "darwin-rebuild switch --flake ~/.dots";
+      rebuild = "sudo darwin-rebuild switch --flake ~/.dots";
     };
 
     functions = {

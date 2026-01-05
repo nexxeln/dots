@@ -173,7 +173,7 @@ in
       selected=$(
           {
               tmux list-sessions -F "#{session_name}" 2>/dev/null
-              [[ -n "$dirs" ]] && find $dirs -mindepth 1 -maxdepth 1 -type d 2>/dev/null
+              [[ -n "$dirs" ]] && find $dirs -mindepth 1 -maxdepth 2 -type d 2>/dev/null
           } | fzf --reverse --border=none --margin=1 --padding=1 \
               --prompt='  ' --pointer='▌' --no-scrollbar \
               --color=bg:#101010,bg+:#232323,fg:#A0A0A0,fg+:#FFFFFF,hl:#FFC799,hl+:#FFC799,pointer:#FFC799,prompt:#FFC799,info:#5C5C5C
