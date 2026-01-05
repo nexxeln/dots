@@ -21,13 +21,6 @@
 
     # extra dotfiles to link
     file = {
-      # opencode config
-      ".config/opencode" = {
-        source = ../../config/opencode;
-        recursive = true;
-      };
-
-
     };
 
     # session variables

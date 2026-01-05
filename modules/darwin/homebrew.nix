@@ -76,7 +76,6 @@
       "openssh"
 
       # security
-      "1password-cli"
       "gnupg"
       "pinentry"
 
