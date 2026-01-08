@@ -54,6 +54,9 @@
       # languages & runtimes
       "fnm"
       "pipx"
+      "uv"
+      "ruff"
+      "ty"
       "zig"
 
       # media
