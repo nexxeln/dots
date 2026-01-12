@@ -8,4 +8,4 @@ manifest:
       revision: main
       import: app/west.yml
   self:
-    path: keyboards/corne/config
+    path: config

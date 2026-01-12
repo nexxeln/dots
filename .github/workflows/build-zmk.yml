@@ -55,11 +55,11 @@ jobs:
           cache_name: cache-zephyr-modules
         with:
           path: |
-            modules/
-            tools/
-            zephyr/
-            bootloader/
-            zmk/
+            keyboards/corne/modules/
+            keyboards/corne/tools/
+            keyboards/corne/zephyr/
+            keyboards/corne/bootloader/
+            keyboards/corne/zmk/
           key: ${{ runner.os }}-build-${{ env.cache_name }}-${{ hashFiles('**/west.yml', '**/build.yaml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache_name }}-
@@ -67,30 +67,25 @@ jobs:
             ${{ runner.os }}-
 
       - name: West Init
+        working-directory: keyboards/corne
         run: |
-          echo "Current directory: $(pwd)"
-          echo "Listing keyboards/corne/config:"
-          ls -la keyboards/corne/config/
-          echo "Content of west.yml:"
-          cat keyboards/corne/config/west.yml
-          echo "Removing any existing .west directory..."
           rm -rf .west
-          echo "Running west init..."
-          west init -l keyboards/corne/config
-          echo "Checking .west directory:"
-          ls -la .west/ || echo "ERROR: No .west directory created!"
+          west init -l config
 
       - name: West Update
+        working-directory: keyboards/corne
         run: west update --fetch-opt=--filter=tree:0
 
       - name: West Zephyr export
+        working-directory: keyboards/corne
         run: west zephyr-export
 
       - name: West Build (${{ env.display_name }})
+        working-directory: keyboards/corne
         shell: sh -x {0}
         run: |
           west build -s zmk/app -d "${{ env.build_dir }}" -b "${{ matrix.board }}" -- \
-            -DZMK_CONFIG="$(pwd)/keyboards/corne/config" \
+            -DZMK_CONFIG="$(pwd)/config" \
             ${{ env.extra_cmake_args }} \
             ${{ matrix.cmake-args }}
 
