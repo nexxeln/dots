@@ -73,47 +73,18 @@ Workflow is set up at `.github/workflows/build-zmk.yml`:
 name: Build ZMK Firmware
 
 on:
+  workflow_dispatch:
   push:
     paths:
-      - 'keyboards/corne/**'
-  workflow_dispatch:
+      - "keyboards/corne/build.yaml"
+      - "keyboards/corne/config/**"
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    container:
-      image: zmkfirmware/zmk-build-arm:stable
-    steps:
-      - uses: actions/checkout@v4
-      - name: Cache west modules
-        uses: actions/cache@v4
-        with:
-          path: |
-            modules/
-            tools/
-            zephyr/
-            bootloader/
-          key: ${{ runner.os }}-zmk-${{ hashFiles('keyboards/corne/config/west.yml') }}
-      - name: West init
-        run: west init -l keyboards/corne/config
-      - name: West update
-        run: west update
-      - name: Build left
-        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/keyboards/corne/config"
-      - name: Archive left
-        uses: actions/upload-artifact@v4
-        with:
-          name: corne_left
-          path: build/zephyr/zmk.uf2
-      - name: Build right
-        run: |
-          rm -rf build
-          west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="corne_right nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/keyboards/corne/config"
-      - name: Archive right
-        uses: actions/upload-artifact@v4
-        with:
-          name: corne_right
-          path: build/zephyr/zmk.uf2
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    with:
+      config_path: keyboards/corne/config
+      build_matrix_path: keyboards/corne/build.yaml
 ```
 
 Push changes to trigger build, then download artifacts from the Actions tab.
