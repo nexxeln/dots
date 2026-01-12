@@ -1,0 +1,52 @@
+name: Build ZMK Firmware
+
+on:
+  push:
+    paths:
+      - 'keyboards/corne/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: zmkfirmware/zmk-build-arm:stable
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache west modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            modules/
+            tools/
+            zephyr/
+            bootloader/
+          key: ${{ runner.os }}-zmk-${{ hashFiles('keyboards/corne/config/west.yml') }}
+
+      - name: West init
+        run: west init -l keyboards/corne/config
+
+      - name: West update
+        run: west update
+
+      - name: Build left half
+        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="corne_left nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/keyboards/corne/config"
+
+      - name: Archive left firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: corne_left
+          path: build/zephyr/zmk.uf2
+
+      - name: Clean build directory
+        run: rm -rf build
+
+      - name: Build right half
+        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD="corne_right nice_view_adapter nice_view" -DZMK_CONFIG="${GITHUB_WORKSPACE}/keyboards/corne/config"
+
+      - name: Archive right firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: corne_right
+          path: build/zephyr/zmk.uf2
