@@ -76,15 +76,33 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "keyboards/corne/build.yaml"
-      - "keyboards/corne/config/**"
+      - "keyboards/corne/**"
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-    with:
-      config_path: keyboards/corne/config
-      build_matrix_path: keyboards/corne/build.yaml
+    runs-on: ubuntu-latest
+    container:
+      image: zmkfirmware/zmk-build-arm:stable
+    strategy:
+      matrix:
+        include:
+          - shield: corne_left nice_view_adapter nice_view
+            artifact: corne_left
+          - shield: corne_right nice_view_adapter nice_view
+            artifact: corne_right
+    steps:
+      - uses: actions/checkout@v4
+      - run: west init -l keyboards/corne/config
+      - run: west update
+      - run: west zephyr-export
+      - run: |
+          west build -s zmk/app -p -b nice_nano_v2 -- \
+            -DSHIELD="${{ matrix.shield }}" \
+            -DZMK_CONFIG="${GITHUB_WORKSPACE}/keyboards/corne/config"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: build/zephyr/zmk.uf2
 ```
 
 Push changes to trigger build, then download artifacts from the Actions tab.
