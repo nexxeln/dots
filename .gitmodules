@@ -1,3 +1,0 @@
-[submodule "keyboards/corne"]
-	path = keyboards/corne
-	url = git@github.com:nexxeln/zmk-config.git
