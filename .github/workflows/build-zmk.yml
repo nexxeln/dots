@@ -44,7 +44,6 @@ jobs:
           artifact_name: ${{ matrix.artifact-name }}
         run: |
           echo "build_dir=$(mktemp -d)" >> $GITHUB_ENV
-          echo "config_path=keyboards/corne/config" >> $GITHUB_ENV
           echo "extra_cmake_args=${shield:+-DSHIELD=\"$shield\"}" >> $GITHUB_ENV
           echo "display_name=${shield:+$shield - }${board}" >> $GITHUB_ENV
           echo "artifact_name=${artifact_name:-${shield:+$shield-}${board//\//_}-zmk}" >> $GITHUB_ENV
@@ -68,7 +67,18 @@ jobs:
             ${{ runner.os }}-
 
       - name: West Init
-        run: west init -l "${GITHUB_WORKSPACE}/${{ env.config_path }}"
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Listing keyboards/corne/config:"
+          ls -la keyboards/corne/config/
+          echo "Content of west.yml:"
+          cat keyboards/corne/config/west.yml
+          echo "Removing any existing .west directory..."
+          rm -rf .west
+          echo "Running west init..."
+          west init -l keyboards/corne/config
+          echo "Checking .west directory:"
+          ls -la .west/ || echo "ERROR: No .west directory created!"
 
       - name: West Update
         run: west update --fetch-opt=--filter=tree:0
@@ -80,7 +90,7 @@ jobs:
         shell: sh -x {0}
         run: |
           west build -s zmk/app -d "${{ env.build_dir }}" -b "${{ matrix.board }}" -- \
-            -DZMK_CONFIG="${GITHUB_WORKSPACE}/${{ env.config_path }}" \
+            -DZMK_CONFIG="$(pwd)/keyboards/corne/config" \
             ${{ env.extra_cmake_args }} \
             ${{ matrix.cmake-args }}
 
