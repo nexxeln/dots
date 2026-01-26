@@ -89,9 +89,6 @@
       "lz4"
       "lzo"
 
-      # misc cli
-      "tree-sitter"
-
       # build deps (often pulled in by others, but explicit is good)
       "openssl@3"
       "readline"
