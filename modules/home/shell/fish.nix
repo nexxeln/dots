@@ -74,6 +74,9 @@
       # opencode
       oc = "opencode -c";
 
+      # claude code
+      clc = "claude --dangerously-skip-permissions";
+
       # rebuild nix
       rebuild = "sudo darwin-rebuild switch --flake ~/.dots";
     };
