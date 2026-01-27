@@ -11,6 +11,7 @@
     ../../modules/home/tools/bat.nix
     ../../modules/home/tools/dev.nix
     ../../modules/home/tools/gh.nix
+    ../../modules/home/tools/pi.nix
     ../../modules/home/packages/node.nix
   ];
 
