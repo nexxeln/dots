@@ -76,25 +76,25 @@ export default function (pi: ExtensionAPI) {
             const currentSessionFile = ctx.sessionManager.getSessionFile();
 
             // Build the chain of parent sessions
-            const sessionChain: string[] = [currentSessionFile];
-            const sessionData = ctx.sessionManager.getData();
-            let parentSession = sessionData.meta?.parentSession;
+            const sessionChain: string[] = currentSessionFile ? [currentSessionFile] : [];
+            const header = ctx.sessionManager.getHeader();
+            let parentSession = header?.parentSession;
             while (parentSession) {
                 sessionChain.push(parentSession);
-                // Try to read parent's parent (basic file read)
+                // Try to read parent's header to find its parent
                 try {
-                    const { stdout } = await pi.exec("cat", [parentSession]);
-                    const parentData = JSON.parse(stdout);
-                    parentSession = parentData.meta?.parentSession;
+                    const { stdout } = await pi.exec("head", ["-1", parentSession]);
+                    const parentHeader = JSON.parse(stdout);
+                    parentSession = parentHeader.parentSession;
                 } catch {
                     break;
                 }
             }
 
             // Generate the handoff prompt with loader UI
-            const result = await ctx.ui.custom<string | null>((tui, theme, _kb, done) => {
+            const result = await ctx.ui.custom<{ text: string | null; error?: string }>((tui, theme, _kb, done) => {
                 const loader = new BorderedLoader(tui, theme, `Generating handoff prompt...`);
-                loader.onAbort = () => done(null);
+                loader.onAbort = () => done({ text: null });
 
                 const doGenerate = async () => {
                     const apiKey = await ctx.modelRegistry.getApiKey(ctx.model!);
@@ -117,26 +117,40 @@ export default function (pi: ExtensionAPI) {
                     );
 
                     if (response.stopReason === "aborted") {
-                        return null;
+                        return { text: null };
                     }
 
-                    return response.content
+                    if (response.stopReason === "error") {
+                        return { text: null, error: response.errorMessage || "Unknown error" };
+                    }
+
+                    const textContent = response.content
                         .filter((c): c is { type: "text"; text: string } => c.type === "text")
                         .map((c) => c.text)
                         .join("\n");
+
+                    if (!textContent) {
+                        return { text: null, error: `No text in response. Stop reason: ${response.stopReason}, content types: ${response.content.map(c => c.type).join(", ")}` };
+                    }
+
+                    return { text: textContent };
                 };
 
                 doGenerate()
                     .then(done)
                     .catch((err) => {
-                        console.error("Handoff generation failed:", err);
-                        done(null);
+                        done({ text: null, error: err.message || String(err) });
                     });
 
                 return loader;
             });
 
-            if (result === null) {
+            if (result.error) {
+                ctx.ui.notify(`Handoff failed: ${result.error}`, "error");
+                return;
+            }
+
+            if (result.text === null) {
                 ctx.ui.notify("Cancelled", "info");
                 return;
             }
@@ -146,7 +160,7 @@ export default function (pi: ExtensionAPI) {
                 ? `\n\n## Session History\nPrevious sessions (most recent first):\n${sessionChain.map((s, i) => `${i + 1}. ${s}`).join("\n")}\n\nUse \`pi --session <path>\` to review any session if needed.`
                 : "";
 
-            const promptWithHistory = result + historySection;
+            const promptWithHistory = result.text + historySection;
 
             // Let user edit the generated prompt
             const editedPrompt = await ctx.ui.editor("Edit handoff prompt", promptWithHistory);
